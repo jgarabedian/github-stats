@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+<div class="jumbotron">
+	<div class="d-flex justify-content-around">
+		<img src="{{user.avatar_url}}" style="height: auto; max-width: 25%">
+		<div style="display: block" class="align-self-center">
+			<h1 class="display-3">{{user.name}}</h1>
+			<p class="lead text-primary">{{user.bio}}</p>
+			<div class="d-flex flex-row bd-highlight mb-3">
+				<i class="fas fa-location-arrow mr-2 text-primary lead"></i>
+				<p class="text-primary lead">{{user.location}}</p>
+				
+			</div>
+			<a class="btn btn-primary btn-lg" href="#repo-header" role="button">See my repos</a>
+		</div>
+	</div>
+</div>
+
+<!-- <h5>Private Repos: {{user.total_private_repos}}</h5>
+<h5>Public Repos: {{user.public_repos}}</h5>
+<h5>Created At: {{user.created_at}}</h5>
+<h5>Followers: {{user.followers}}</h5>
+<h5>Location: {{user.location}}</h5>
+<h5>{{user.headers}}</h5> -->
+
+{% endblock %}
+
+{% block content %}
+<h3 id="repo-header">Repos</h3>
+<p class="text-muted">Sorted by Activity</p>
+<hr>
+<div class="repo-container d-flex flex-wrap">
+	{% for repo in details %}
+	<!-- <div class="card m-2" style="display: inline-block; max-width: 50%;"> -->
+	<div class="card m-2" style="max-width: 40%;">
+		<h3 class="card-header">
+			<a class="card-link" href="{{repo.html_url}}" target="_blank">
+				{{repo.name}}
+			</a>
+		</h3>
+		<div class="card-body">
+			<a href="{{repo.owner.html_url}}" target="_blank" class="card-link">
+				{{repo.owner.login}}
+			</a>
+			<p class="card-text">{{repo.description}}</p>
+			<!-- <h5 class="card-title"></h5> -->
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+	    		Stars
+		    	<span class="badge badge-primary badge-pill">
+		    		{{repo.stargazers_count}}
+		    	</span>
+	  		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+	    		Watchers
+		    	<span class="badge badge-primary badge-pill">
+		    		{{repo.watchers_count}}
+		    	</span>
+	  		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+	    		Subscribers
+		    	<span class="badge badge-primary badge-pill">
+		    		{{repo.subscribers_count}}
+		    	</span>
+	  		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+	    		Forks
+		    	<span class="badge badge-primary badge-pill">
+		    		{{repo.forks_count}}
+		    	</span>
+	  		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+	    		Language
+		    	<span class="badge badge-primary badge-pill">
+		    		{{repo.language}}
+		    	</span>
+	  		</li>
+		</ul>
+		<div class="card-footer text-muted">
+			Last Pushed: {{repo.pushed_at.strftime('%d %B, %Y')}}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}
