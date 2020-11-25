@@ -1,8 +1,10 @@
 from flask import Flask, render_template
 from github import Github
 import pprint
+import os
 
-g = Github("714448b4008ce215bd31963c6f23ae1b2755cd81")
+
+g = Github(os.environ.get('GITHUB_AUTH'))
 
 app = Flask(__name__)
 
