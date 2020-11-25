@@ -10,6 +10,7 @@ Jinja2==2.11.2
 MarkupSafe==1.1.1
 PyGithub==1.53
 PyJWT==1.7.1
+python-dotenv==0.15.0
 requests==2.25.0
 urllib3==1.26.2
 Werkzeug==1.0.1

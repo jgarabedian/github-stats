@@ -29,52 +29,81 @@
 {% block content %}
 <h3 id="repo-header">Repos</h3>
 <p class="text-muted">Sorted by Activity</p>
+
 <hr>
 <div class="repo-container d-flex flex-wrap">
 	{% for repo in details %}
 	<!-- <div class="card m-2" style="display: inline-block; max-width: 50%;"> -->
-	<div class="card m-2" style="max-width: 40%;">
-		<h3 class="card-header">
-			<a class="card-link" href="{{repo.html_url}}" target="_blank">
+	<div class="card m-2" style="max-width: 40%">
+		<h3 class="card-header d-flex justify-content-between">
+			<a class="card-link mr-3" href="{{repo.html_url}}" target="_blank">
 				{{repo.name}}
 			</a>
+			{% if repo.language %}
+			<span class="badge badge-secondary badge-pill mt-auto mb-auto"
+					style="font-size: .5em">
+	    		{{repo.language}}
+	    	</span>
+	    	{% endif %}
 		</h3>
 		<div class="card-body">
 			<a href="{{repo.owner.html_url}}" target="_blank" class="card-link">
 				{{repo.owner.login}}
 			</a>
-			<p class="card-text">{{repo.description}}</p>
-			<!-- <h5 class="card-title"></h5> -->
+			<p class="card-text">
+				{{repo.description if repo.description else "No Description Added"}}
+			</p>
+			<p class="card-text">
+				<span class="text-primary font-weight-bold">
+					Topics:
+				</span>
+				 {{", ".join(repo.get_topics()) if repo.get_topics() else "No topics added"}}
+			</p>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item d-flex justify-content-between align-items-center">
-	    		Stars
+				<div>
+		    		<i class="fas fa-star" style="color: gold"></i>
+		    		Stars
+		    	</div>
 		    	<span class="badge badge-primary badge-pill">
 		    		{{repo.stargazers_count}}
 		    	</span>
 	  		</li>
 			<li class="list-group-item d-flex justify-content-between align-items-center">
-	    		Watchers
+				<div>
+		    		<i class="fas fa-eye"></i>
+		    		Views
+		    	</div>
+		    	<span class="badge badge-primary badge-pill">
+		    		{{ repo.get_views_traffic().count }}
+		    	</span>
+	  		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<div>
+		    		<i class="fas fa-binoculars"></i>
+		    		Watchers
+		    	</div>
 		    	<span class="badge badge-primary badge-pill">
 		    		{{repo.watchers_count}}
 		    	</span>
 	  		</li>
 			<li class="list-group-item d-flex justify-content-between align-items-center">
-	    		Subscribers
+	    		<div>
+	    			<i class="fas fa-user-plus"></i>
+	    			Subscribers
+    			</div>
 		    	<span class="badge badge-primary badge-pill">
 		    		{{repo.subscribers_count}}
 		    	</span>
 	  		</li>
 			<li class="list-group-item d-flex justify-content-between align-items-center">
-	    		Forks
+	    		<div>
+	    			<i class="fas fa-code-branch"></i>
+	    			Forks
+    			</div>
 		    	<span class="badge badge-primary badge-pill">
 		    		{{repo.forks_count}}
-		    	</span>
-	  		</li>
-			<li class="list-group-item d-flex justify-content-between align-items-center">
-	    		Language
-		    	<span class="badge badge-primary badge-pill">
-		    		{{repo.language}}
 		    	</span>
 	  		</li>
 		</ul>
