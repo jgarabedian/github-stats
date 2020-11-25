@@ -12,7 +12,9 @@
 				<p class="text-primary lead">{{user.location}}</p>
 				
 			</div>
-			<a class="btn btn-primary btn-lg" href="#repo-header" role="button">See my repos</a>
+			<button type="button" class="btn btn-primary btn-lg" id="repo-nav">
+				See the repos
+			</button>
 		</div>
 	</div>
 </div>
@@ -112,6 +114,13 @@
 		</div>
 	</div>
 	{% endfor %}
+</div>
+<div class="container-fluid mt-3 fixed-bottom">
+	<div class="mb-1">
+		<button type="button" id="back-to-top" class="btn btn-outline-secondary float-right">
+			Back to Top
+		</button>
+	</div>
 </div>
 
 {% endblock %}
